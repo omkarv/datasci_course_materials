@@ -1,0 +1,32 @@
+
+
+;
+CREATE VIEW XT AS
+SELECT *
+FROM frequency
+WHERE docid = '10080_txt_crude' 
+UNION
+SELECT *
+FROM frequency 
+WHERE docid = '17035_txt_earn'
+;
+
+CREATE VIEW QQ AS
+SELECT * FROM frequency
+UNION
+SELECT 'q' as docid, 'washington' as term, 1 as count 
+UNION
+SELECT 'q' as docid, 'taxes' as term, 1 as count
+UNION 
+SELECT 'q' as docid, 'treasury' as term, 1 as count
+;
+CREATE VIEW QQT AS
+SELECT *
+FROM QQ
+GROUP BY term
+;
+SELECT X.docid, XT.docid, SUM(X.count * XT.count)
+FROM X,XT
+WHERE X.term = XT.term
+GROUP BY X.docid, XT.docid
+;

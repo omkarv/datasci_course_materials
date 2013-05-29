@@ -1,0 +1,13 @@
+CREATE VIEW X AS
+SELECT *
+FROM frequency
+WHERE docid= "17035_txt_earn" or docid ="10080_txt_crude" 
+GROUP BY term
+
+
+;
+
+SELECT X.docid, X.docid, SUM(X.count * X.count)
+FROM X
+GROUP BY X.docid, X.docid
+;

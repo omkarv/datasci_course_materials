@@ -1,0 +1,24 @@
+CREATE VIEW RR AS
+SELECT *
+FROM frequency
+;
+
+CREATE VIEW JJ AS
+SELECT * FROM frequency
+UNION
+SELECT 'q' as docid, 'washington' as term, 1 as count 
+UNION
+SELECT 'q' as docid, 'taxes' as term, 1 as count
+UNION 
+SELECT 'q' as docid, 'treasury' as term, 1 as count
+;
+CREATE VIEW KK AS
+SELECT *
+FROM JJ
+GROUP BY term
+;
+SELECT RR.docid, KK.docid, SUM(RR.count * KK.count)
+FROM RR,KK
+WHERE RR.term = KK.term
+GROUP BY KK.docid, RR.docid
+;
